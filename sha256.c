@@ -8,17 +8,18 @@ binaryToHex(const unsigned char *d)
 {
     static const char *hex = "0123456789abcdef";
     char *ascii;
+    int i;
 
-    if ((ascii = malloc(strlen((const char*)d) * 2 + 1)) == NULL) {
+    if ((ascii = malloc(strlen((const char *)d) * 2 + 1)) == NULL) {
         return NULL;
     }
 
-    for (int i = 0; i < strlen((const char *)d); i++) {
-        ascii[2 * i] = hex[((d[i] & 0xf0) >> 4)];
-        ascii[2 * i + 1] = hex[(d[i] & 0x0f)];
+    for (i = 0; i < strlen((const char *)d); i++) {
+        ascii[i * 2] = hex[((d[i] & 0xf0) >> 4)];
+        ascii[i * 2 + 1] = hex[(d[i] & 0x0f)];
     }
 
-    ascii[strlen(ascii)] = '\0';
+    ascii[i * 2] = '\0';
     return ascii;
 }
 
